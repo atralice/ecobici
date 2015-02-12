@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link href="css/ecobici.css" rel="stylesheet" type="text/css">
+<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css">
+<head>
+<title>Visualizacion EcoBici</title>
+</head>
+<body>
+	<h1>Buenos Aires</h1>
+	<div id="map"></div>
+	<canvas width="1200" height="550"></canvas>
+</body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script src="lib/kdtree.js"></script>
+<script src="lib/philogl.js"></script>
+<script src="lib/graph.js"></script>
+<script src="lib/mingle.js"></script>
+<script>
+var width = 1200, height = 550;
+	var t = [-985920.143529706,-513714.48739570886];
+	var s = 2055.1798;
+//Creo la proyeccion mercator con centro en el centroide de shape de Abila con d3.geo.centroid(json)
+var projectionMingle = d3.geo.mercator().center([-58.416132, -34.585615]).translate([400,100]).scale(400000);
+var projection = d3.geo.mercator().center([-58.416132, -34.585615]);
+var path = d3.geo.path().projection(projection).pointRadius(3/s);
+var zoom = d3.behavior.zoom().translate(t).scale(s);
+
+svg = d3.select("#map").append("svg")
+	.attr("width", width)
+	.attr("height", height)
+	//.call(zoom.on("zoom", redraw))
+	.append("g")
+	.attr("name","Buenos Aires")
+	.attr("transform","translate("+t+")scale("+s+")")
+	.style("stroke-width", 1/s);
+
+function redraw() {
+	var s = d3.event.scale;
+	var t = d3.event.translate;
+
+	svg.style("stroke-width", 1/s).attr("transform", "translate(" + t + ")scale(" + s + ")");
+}
+function drawMap(error, barrios, calles, estaciones, lineas) {
+	svg.append("path")
+		//.datum({type: "FeatureCollection", features: topojson.feature(barrios, barrios.objects.neighborhoods).features})
+		.datum({type: "FeatureCollection", features: barrios.features})
+		.attr("d", path)
+		.attr('class', 'barrios');
+
+	svg.append("path")
+		//.datum({type: "FeatureCollection", features: topojson.feature(calles, calles.objects.callesba).features})
+		.datum({type: "FeatureCollection", features: calles.features})
+		.attr("d", path)
+		.attr('class', 'calles');
+
+	svg.append("path")
+		.datum({type: "FeatureCollection", features: estaciones.features})
+		.attr("d", path)
+		.attr('class', 'estaciones');
+
+	svg.append("path")
+		.datum({type: "FeatureCollection", features: lineas.features})
+		.attr("d", path)
+		.attr('class', 'lineas');
+	
+
+}
+
+queue()
+	.defer(d3.json, "geojson/barriosba.geojson") // topojson polygons
+	.defer(d3.json, "geojson/callesba.geojson") // geojson points
+	.defer(d3.json, "geojson/estaciones.geojson")
+	.defer(d3.json, "geojson/lineasrecorridos.geojson")
+    .await(drawMap); //function that uses files
+
+d3.json("data/mingle.json",function(error, json){
+	if (error) return console.warn(error);
+ 	//data = json;
+	json.forEach(function(d) {
+      		d.data.coords[0] = projectionMingle([d.data.coords[0], d.data.coords[1]])[0];
+      		d.data.coords[1] = projectionMingle([d.data.coords[0], d.data.coords[1]])[1];
+      		d.data.coords[2] = projectionMingle([d.data.coords[2], d.data.coords[3]])[0];
+      		d.data.coords[3] = projectionMingle([d.data.coords[2], d.data.coords[3]])[1];
+   	});
+	data = json;
+	vizmingle();  
+});
+
+function vizmingle(){
+	//json = JSON.parse(data);
+	json = data;
+	var canvas = document.querySelector('canvas'),
+      	ctx = canvas.getContext('2d'),
+      	bundle;
+	delta = 1;
+	curviness = 0;
+	
+	bundle = new Bundler();
+      	bundle.setNodes(json);
+      	bundle.buildNearestNeighborGraph();
+      	bundle.MINGLE();
+	bundle.graph.each(function(node) {
+	ctx.strokeStyle = 'rgba(0, 200, 200, 0.2)';
+	ctx.lineWidth = 2;
+	var edges = node.unbundleEdges(delta);
+	Bundler.Graph.renderBezier(ctx, edges);
+
+});}
+
+
+</script>

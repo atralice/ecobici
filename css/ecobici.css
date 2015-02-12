@@ -1,0 +1,39 @@
+
+body{
+	padding: 20px;
+}
+#map svg{
+		border:5px solid #ccc;
+	}
+
+.prueba {stroke:rgb(254,240,217)}
+
+.barrios {
+	fill: #ecf0f1;
+	stroke: none;
+	}
+
+.estaciones{
+	fill: #2980b9;
+	stroke: #333;
+}
+
+.calles{
+	fill: none;
+	stroke: #7f8c8d;
+}
+
+.lineas{
+	fill: #333;
+	stroke: #333;
+}
+
+.q4-3{stroke:#00441b; stroke-width: 0.00099;}
+.q3-3{stroke:#238b45; stroke-width: 0.00089;}
+.q2-3{stroke:#74c476; stroke-width: 0.00079;}
+.q1-3{stroke:#41ab5d; stroke-width: 0.00059;}
+.q0-3{stroke:#c7e9c0; stroke-width: 0.00039;}
+
+.oculto {
+	stroke-width: 0;
+}
