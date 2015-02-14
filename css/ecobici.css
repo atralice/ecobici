@@ -28,6 +28,12 @@ body{
 	stroke: #333;
 }
 
+.tip{
+	visibility: inherit;
+	fill: #fafafa;
+	stroke: black;
+}
+
 .q4-3{stroke:#00441b; stroke-width: 0.00099;}
 .q3-3{stroke:#238b45; stroke-width: 0.00089;}
 .q2-3{stroke:#74c476; stroke-width: 0.00079;}

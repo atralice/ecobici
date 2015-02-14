@@ -111,3 +111,42 @@ function vizmingle(){
 
 
 </script>
+
+/*
+
+CODIGO MINGLE AGREGAR CANVAS PARA QUE FUNCIONE
+
+d3.json("data/mingle.json",function(error, json){
+	if (error) return console.warn(error);
+ 	//data = json;
+	json.forEach(function(d) {
+      		d.data.coords[0] = projectionMingle([d.data.coords[0], d.data.coords[1]])[0];
+      		d.data.coords[1] = projectionMingle([d.data.coords[0], d.data.coords[1]])[1];
+      		d.data.coords[2] = projectionMingle([d.data.coords[2], d.data.coords[3]])[0];
+      		d.data.coords[3] = projectionMingle([d.data.coords[2], d.data.coords[3]])[1];
+   	});
+	data = json;
+	vizmingle();  
+});
+
+function vizmingle(){
+	//json = JSON.parse(data);
+	json = data;
+	var canvas = document.querySelector('canvas'),
+      	ctx = canvas.getContext('2d'),
+      	bundle;
+	delta = 1;
+	curviness = 0;
+	
+	bundle = new Bundler();
+      	bundle.setNodes(json);
+      	bundle.buildNearestNeighborGraph();
+      	bundle.MINGLE();
+	bundle.graph.each(function(node) {
+	ctx.strokeStyle = 'rgba(0, 200, 200, 0.2)';
+	ctx.lineWidth = 2;
+	var edges = node.unbundleEdges(delta);
+	Bundler.Graph.renderBezier(ctx, edges);
+
+});}
+*/
