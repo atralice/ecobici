@@ -1,6 +1,6 @@
 
 body{
-	padding: 20px;
+	padding: 10px;
 }
 #contenedor{
 	width: 100%;
@@ -23,7 +23,6 @@ body{
 #agregado{
 	height: 50%;
 	width: 100%;
-	background-color: blue;
 }
 
 #map{
@@ -32,7 +31,7 @@ body{
 }
 
 #map svg{
-		border:5px solid #ccc;
+		border:3px solid #ccc;
 	}
 
 .barrios {

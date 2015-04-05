@@ -2,7 +2,9 @@
 <meta charset="utf-8">
 <link href="css/ecobici.css" rel="stylesheet" type="text/css">
 <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Visualizacion EcoBici</title>
 </head>
 <body>
@@ -13,44 +15,44 @@
 		</div>
 		<div id="right">
 			<div id='garea'></div>
-			<div id="infoestacion"></div>
+			<div id='controles'>
+				<span> Estación Origen</span>
+				<select id="estacionorigen" onChange="renderrecorridos();" class="selectpicker">
+					<option value=0>TODAS</option>
+					<option value="RETIRO">RETIRO</option>
+					<option value="UCA PUERTO MADERO"	>UCA PUERTO MADERO</option>
+					<option value="PZA. ROMA"	>PZA. ROMA</option>
+					<option value="DERECHO"		>DERECHO</option>
+					<option value="PZA. DE MAYO"	>PZA. DE MAYO</option>
+					<option value="PZA. ROMA"	>PZA. ROMA</option>
+					<option value="PARQUE LEZAMA"	>PARQUE LEZAMA</option>
+					<option value="PLAZA ITALIA"	>PLAZA ITALIA</option>
+					<option value="PACIFICO"	>PACIFICO</option>
+					<option value="OBELISCO"	>OBELISCO</option>
+					<option value="PARQUE LAS HERAS"	>PARQUE LAS HERAS</option>
+					<option value="ADUANA"	>ADUANA</option>
+					<option value="PLAZA ALMAGRO"	>PLAZA ALMAGRO</option>
+					<option value="CONGRESO"	>CONGRESO</option>
+					<option value="TRIBUNALES"	>TRIBUNALES</option>
+					<option value="INDEPENDENCIA"	>INDEPENDENCIA</option>
+					<option value="PLAZA HOUSSAY"	>PLAZA HOUSSAY</option>
+					<option value="PLAZA VICENTE LOPEZ"	>PLAZA VICENTE LOPEZ</option>
+					<option value="VIRREY CEVALLOS"	>VIRREY CEVALLOS</option>
+					<option value="ONCE"	>ONCE</option>
+					<option value="PZA. SAN MARTIN"	>PZA. SAN MARTIN</option>
+					<option value="ARENALES"	>ARENALES</option>
+					<option value="PARQUE PATRICIOS "	>PARQUE PATRICIOS </option>
+					<option value="CMD"	>CMD</option>
+					<option value="SUIPACHA"	>SUIPACHA</option>
+					<option value="EMMA DE LA BARRA"	>EMMA DE LA BARRA</option>
+					<option value="ALSINA "	>ALSINA </option>
+					<option value="PLAZA GÜEMES"	>PLAZA GÜEMES</option>
+				</select>
+			</div>
 			<div id="agregado"></div>
 		</div>
 	</div>
-	<div id='controles'>
-		<span> Estación Origen</span>
-		<select id="estacionorigen" onChange="renderrecorridos();" class="selectpicker">
-			<option value=0>TODAS</option>
-			<option value="RETIRO">RETIRO</option>
-			<option value="UCA PUERTO MADERO"	>UCA PUERTO MADERO</option>
-			<option value="PZA. ROMA"	>PZA. ROMA</option>
-			<option value="DERECHO"		>DERECHO</option>
-			<option value="PZA. DE MAYO"	>PZA. DE MAYO</option>
-			<option value="PZA. ROMA"	>PZA. ROMA</option>
-			<option value="PARQUE LEZAMA"	>PARQUE LEZAMA</option>
-			<option value="PLAZA ITALIA"	>PLAZA ITALIA</option>
-			<option value="PACIFICO"	>PACIFICO</option>
-			<option value="OBELISCO"	>OBELISCO</option>
-			<option value="PARQUE LAS HERAS"	>PARQUE LAS HERAS</option>
-			<option value="ADUANA"	>ADUANA</option>
-			<option value="PLAZA ALMAGRO"	>PLAZA ALMAGRO</option>
-			<option value="CONGRESO"	>CONGRESO</option>
-			<option value="TRIBUNALES"	>TRIBUNALES</option>
-			<option value="INDEPENDENCIA"	>INDEPENDENCIA</option>
-			<option value="PLAZA HOUSSAY"	>PLAZA HOUSSAY</option>
-			<option value="PLAZA VICENTE LOPEZ"	>PLAZA VICENTE LOPEZ</option>
-			<option value="VIRREY CEVALLOS"	>VIRREY CEVALLOS</option>
-			<option value="ONCE"	>ONCE</option>
-			<option value="PZA. SAN MARTIN"	>PZA. SAN MARTIN</option>
-			<option value="ARENALES"	>ARENALES</option>
-			<option value="PARQUE PATRICIOS "	>PARQUE PATRICIOS </option>
-			<option value="CMD"	>CMD</option>
-			<option value="SUIPACHA"	>SUIPACHA</option>
-			<option value="EMMA DE LA BARRA"	>EMMA DE LA BARRA</option>
-			<option value="ALSINA "	>ALSINA </option>
-			<option value="PLAZA GÜEMES"	>PLAZA GÜEMES</option>
-		</select>
-	</div>
+	<!--
 	<div id='controles'>
 		<span> Estación Destino</span>
 		<select id="estaciondestino" onChange="renderrecorridos();" class="selectpicker">
@@ -85,8 +87,10 @@
 			<option value="PLAZA GÜEMES"	>PLAZA GÜEMES</option>
 		</select>
 	</div>
+-->
 </body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 <script src="http://d3js.org/queue.v1.min.js"></script>
+<script src="lib/sankey.js"></script>
 <script src="lib/ecobici.viz.js"></script>
