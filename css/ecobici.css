@@ -9,7 +9,7 @@ body{
 
 #left, #right {
 	float: left;
-	width: 50%;
+	margin: 5px;
 	height: 100%;
 	overflow: auto;
 }
@@ -48,6 +48,10 @@ body{
 	visibility: inherit;
 	fill: #fafafa;
 	stroke: black;
+}
+
+#about{
+  margin-right: 10px;
 }
 
 .q4-3{stroke:#00441b; stroke-width: 0.00099;}
